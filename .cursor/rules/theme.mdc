@@ -1,0 +1,58 @@
+---
+description: Use the existing theme tokens, type scale, and fonts. Always on.
+alwaysApply: true
+---
+
+# Theme
+
+Colors, type, and fonts are already in the codebase. Use them. Do not add a new hex color, a Tailwind palette class (`bg-slate-950`, `text-indigo-400`), or another font.
+
+Tokens live in `src/app/globals.css`. Dark is the default. Light applies when `html[data-theme="light"]`. The header theme button sets that attribute. These values were measured from [roshis.dev](https://www.roshis.dev/).
+
+## Colors
+
+| Token | Dark | Light | Use |
+| --- | --- | --- | --- |
+| `background` | `#0a0a0f` | `#fafafa` | page, header, footer |
+| `foreground` | `#e8e8ed` | `#18181b` | primary text |
+| `muted` | `#8888a0` | `#71717a` | secondary text, nav |
+| `line` | `#1e1e26` | `#e4e4e7` | borders |
+| `surface` | `#141419` | `#ffffff` | cards and tiles |
+| `elevated` | `#101013` | `#ffffff` | raised panels |
+| `accent` | `#6366f1` | `#4f46e5` | primary buttons, dates, focus |
+| `on-accent` | `#ffffff` | `#ffffff` | text on accent |
+| `success` | `#4ade80` | `#4ade80` | availability only |
+| `link` | `#818cf8` | `#4f46e5` | inline links |
+
+In components use the Tailwind names: `bg-background`, `text-foreground`, `text-muted`, `border-line`, `bg-surface`, `bg-elevated`, `bg-accent`, `text-on-accent`, `text-success`, `text-link`. Header classes `bg-header-accent` and `text-on-header-accent` point at the same accent.
+
+Generated images (`src/lib/og-card.tsx`, `src/app/icon.tsx`, `src/app/manifest.ts`) cannot read CSS variables. Use the dark hex values from this table.
+
+## Fonts
+
+Loaded in `src/app/layout.tsx`. Do not add another `next/font` family.
+
+| Class | Family | Use |
+| --- | --- | --- |
+| `font-sans` | Inter | body, nav, buttons, forms |
+| `font-display` | Satoshi | headings |
+| `font-mono` | JetBrains Mono | code and domain labels |
+
+Satoshi is the variable file at `src/fonts/Satoshi-Variable.woff2`.
+
+## Size
+
+| Role | Classes |
+| --- | --- |
+| `h1` | `font-display text-[clamp(28px,5vw,64px)] font-extrabold leading-[1.1] tracking-tight` |
+| `h2` | `font-display text-[clamp(32px,5vw,48px)] font-bold tracking-tight` |
+| `h3` | `font-display text-[22px] font-semibold leading-snug` |
+| Lede | `text-xl leading-relaxed text-muted` |
+| Body | `text-base leading-relaxed` |
+| Nav | `text-sm font-medium` |
+| Button | `rounded-xl text-[15px] font-semibold`, height 48px (`h-12`), padding `px-6` |
+| Header Ask AI | `h-9 rounded-xl px-4 text-[13px] font-semibold` |
+| Date label | `text-xs font-semibold uppercase tracking-[0.08em] text-accent` |
+| Chip | `h-8 rounded-md border border-line px-2 text-[11px] font-medium text-muted` |
+
+Radius for buttons and tiles is 12px (`rounded-xl`). Icon buttons in the header stay 36px (`h-9`).

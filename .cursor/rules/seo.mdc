@@ -1,0 +1,52 @@
+---
+description: Exact SEO contract for every public route. Always on.
+alwaysApply: true
+---
+
+# SEO
+
+Rank the person, the role, the services, and each real case study. Copy changes in `src/content` only. Publish through `src/lib/seo.ts` and `src/lib/schema.ts`.
+
+## Every public page
+
+- Call `pageMetadata({ title, description, path })`. Home title is absolute: `Dileep Rajoriya | Software Engineer & Full-Stack Developer`. A string title would be doubled by the `%s — Name` template.
+- Description is unique and 140–160 characters. Do not reuse `profile.summary` as the meta description.
+- One `h1`. It and the title describe the same topic. No second `h1` in the header.
+- Canonical path matches the route. Internal links use real words (`See the work`), never “click here”.
+- `lang="en"` on `<html>`. `metadataBase` is `new URL(profile.siteUrl)`. `NEXT_PUBLIC_SITE_URL` has no trailing slash.
+
+## Structured data
+
+Use `JsonLd` plus `graph()`. Escape `<` in the script. Schema text must match visible copy.
+
+| Route | Node |
+| --- | --- |
+| every page | `personNode()`, `websiteNode()` in the root layout |
+| `/` and `/projects` | `workListNode` |
+| `/projects/[slug]` | `projectNode` plus breadcrumbs |
+| `/services` | `servicesNode()`, `faqNode()` |
+| `/about` and `/experience` | `profilePageNode()` |
+| `/contact` | `contactPageNode()` |
+| `/blog` | none until a real post exists. The empty page stays out of the sitemap and uses `noindex` |
+
+Allowed types: `Person`, `WebSite`, `ProfilePage`, `ContactPage`, `Service`, `CreativeWork`, `FAQPage`, `BreadcrumbList`, `ItemList`. No reviews, ratings, or fake `AggregateRating`.
+
+## Indexing
+
+- New public routes go in `src/app/sitemap.ts` with `lastModified` from content, never `new Date()`.
+- `src/app/robots.ts` uses `indexingRobots()` behavior: while `profile.placeholder` is true, `Disallow: /` and meta `noindex, nofollow`. Do not remove that while samples remain.
+- When placeholder becomes false, robots allow `/` and point `sitemap` at `absoluteUrl("/sitemap.xml")`.
+- OG and Twitter images stay on `opengraph-image.tsx` and `twitter-image.tsx` via `renderOgCard`. Real photos use `next/image` and a specific `alt`. Decorative marks are CSS or `alt=""`.
+- Do not call `new Date()`, `Date.now()`, `Math.random()`, or `crypto.randomUUID()` during render.
+
+```tsx
+// ❌ shared description, no canonical
+export const metadata = { title: "Home", description: profile.summary };
+
+// ✅
+export const metadata = pageMetadata({
+  title: "Work",
+  description: pageCopy.work.description,
+  path: "/projects",
+});
+```
