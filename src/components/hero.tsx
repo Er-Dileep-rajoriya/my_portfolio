@@ -8,13 +8,13 @@ export function Hero() {
       <div className="hero-gradient-bg absolute inset-0" />
       <div className="absolute inset-0 bg-background/60" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-32 bg-linear-to-b from-transparent via-background/72 to-background md:h-44" />
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[1280px] flex-col px-6 md:px-12 lg:grid lg:grid-cols-12 lg:gap-4">
-        <div className="relative order-1 hidden h-[40vh] min-h-48 overflow-hidden md:block lg:order-2 lg:col-span-7 lg:h-[50vh] lg:max-h-[620px]">
-          <div className="absolute inset-2">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] items-center px-6 pt-6 pb-28 md:grid-cols-12 md:gap-6 md:px-12 md:pt-8">
+        <div className="relative order-1 col-span-6 hidden h-[min(46vh,460px)] min-h-64 overflow-hidden md:order-2 md:block lg:col-span-7 lg:h-[min(52vh,520px)]">
+          <div className="absolute inset-0">
             <HeroCanvas />
           </div>
         </div>
-        <div className="order-2 flex flex-col justify-center py-8 md:py-0 lg:order-1 lg:col-span-5 lg:min-h-[calc(100svh-4rem)]">
+        <div className="order-2 flex flex-col justify-center md:order-1 md:col-span-6 lg:col-span-5">
           <div className="flex flex-col gap-6">
             <div className="rise">
               <span className="inline-flex h-7 items-center gap-1.5 rounded-[14px] border border-success/20 bg-accent/10 px-3 text-[12px] font-medium whitespace-nowrap text-foreground">
